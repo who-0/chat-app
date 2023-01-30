@@ -1,0 +1,21 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "real time chat app using web socket ( socket.io )",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "watch": "nodemon server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/who-0/chat-app.git"
+  },
+  "author": "DaDDy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/who-0/chat-app/issues"
+  },
+  "homepage": "https://github.com/who-0/chat-app#readme"
+}
