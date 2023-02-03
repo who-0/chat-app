@@ -29,10 +29,12 @@ socket.on("new user", function (data) {
 userForm.addEventListener("submit", function (e) {
   e.preventDefault();
   const userData = userInput.value;
-  socket.emit("new message", userData);
+  socket.emit("new message", { message: userData });
 });
 
-function addMessage(userID, message) {
+function addMessage({ userID, message }) {
+  console.log(userID, message);
+  console.log(email);
   const current_time = new Date().toLocaleString("en-US", {
     hour: "numeric",
     minute: "numeric",
@@ -58,13 +60,14 @@ function addMessage(userID, message) {
   msgHistory.innerHTML += userID === email ? outgoingMsg : incomingMsg;
 }
 
-socket.on("message", function (data) {
-  console.log("this is from server to client", data);
+socket.on("message", function (id, data) {
+  console.log(id, data);
+  addMessage({ id, data });
 });
 
-userInput.addEventListener("keyup", function () {
-  socket.emit("typing", { message: "typing" });
-});
+// userInput.addEventListener("keyup", function () {
+//   socket.emit("typing", { message: "typing" });
+// });
 
 socket.on("user typing", function (data) {
   console.log(data);

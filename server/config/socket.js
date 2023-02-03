@@ -17,8 +17,8 @@ module.exports = (server) => {
 
     //! New Message
     socket.on("new message", (data) => {
-      console.log(data);
-      socket.emit("message", data);
+      console.log({ id: socket.userID, data });
+      socket.emit("message", { id: socket.userID, ...data });
     });
 
     socket.on("typing", (data) => {
