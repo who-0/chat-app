@@ -18,11 +18,11 @@ module.exports = (server) => {
     //! New Message
     socket.on("new message", (data) => {
       console.log({ id: socket.userID, data });
-      socket.emit("message", { id: socket.userID, ...data });
+      io.emit("message", { id: socket.userID, message: data });
     });
 
     socket.on("typing", (data) => {
-      socket.emit("user typing", data);
+      socket.broadcast.emit("user typing", data);
     });
 
     //! User Disconnect

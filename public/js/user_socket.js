@@ -3,6 +3,7 @@ const userForm = document.getElementById("user_form");
 const userInput = document.getElementById("user_message");
 const activeUsers = document.getElementById("active_users");
 const msgHistory = document.getElementById("message_history");
+const typing = document.getElementById("user_typing");
 let email;
 
 //! New User Connect
@@ -28,13 +29,15 @@ socket.on("new user", function (data) {
 //! New Message
 userForm.addEventListener("submit", function (e) {
   e.preventDefault();
-  const userData = userInput.value;
-  socket.emit("new message", { message: userData });
+  const userData = userInput.value || null;
+  if (!userData) {
+    return;
+  }
+  socket.emit("new message", userData);
+  userInput.value = "";
 });
 
 function addMessage({ userID, message }) {
-  console.log(userID, message);
-  console.log(email);
   const current_time = new Date().toLocaleString("en-US", {
     hour: "numeric",
     minute: "numeric",
@@ -60,17 +63,20 @@ function addMessage({ userID, message }) {
   msgHistory.innerHTML += userID === email ? outgoingMsg : incomingMsg;
 }
 
-socket.on("message", function (id, data) {
-  console.log(id, data);
-  addMessage({ id, data });
+socket.on("message", function (data) {
+  addMessage({ userID: data.id, message: data.message });
+  typing.innerHTML = "";
 });
 
-// userInput.addEventListener("keyup", function () {
-//   socket.emit("typing", { message: "typing" });
-// });
+userInput.addEventListener("keyup", function () {
+  socket.emit("typing", { isTyping: userInput.value.length > 0 });
+});
 
 socket.on("user typing", function (data) {
-  console.log(data);
+  if (!data) {
+    typing.innerHTML = "";
+  }
+  typing.innerHTML = `<p>Typing...</p>`;
 });
 
 //! User Disconnect
