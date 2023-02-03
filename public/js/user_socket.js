@@ -2,6 +2,7 @@ const socket = io();
 const userForm = document.getElementById("user_form");
 const userInput = document.getElementById("user_message");
 const activeUsers = document.getElementById("active_users");
+const msgHistory = document.getElementById("message_history");
 let email;
 
 //! New User Connect
@@ -30,6 +31,32 @@ userForm.addEventListener("submit", function (e) {
   const userData = userInput.value;
   socket.emit("new message", userData);
 });
+
+function addMessage(userID, message) {
+  const current_time = new Date().toLocaleString("en-US", {
+    hour: "numeric",
+    minute: "numeric",
+  });
+  const incomingMsg = `
+    <div className="incoming_message">
+      <p>${message}</p>
+      <div className="user_id">
+        <span>${userID}</span>
+      </div>
+    </div>
+  `;
+
+  const outgoingMsg = `
+  <div className="outgoing_message">
+    <p>${message}</p>
+    <div className="time">
+      <span>${current_time}</span>
+    </div>
+  </div>
+  `;
+
+  msgHistory.innerHTML += userID === email ? outgoingMsg : incomingMsg;
+}
 
 socket.on("message", function (data) {
   console.log("this is from server to client", data);
