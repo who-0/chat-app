@@ -5,14 +5,63 @@ body {
 }
 
 .nav_container {
-  height: 7%;
-  background-color: blue;
+  height: 9%;
+  background-color: #e6f4fc;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: relative;
 }
 
 .nav_container .logo,
-.menu {
+.profile_img {
   margin: auto 4%;
+}
+
+.nav_container .profile {
+  position: absolute;
+  right: 3%;
+  top: 119%;
+  width: 25%;
+  /* height: 144px; */
+  background-color: white;
+  padding: 1%;
+  border-radius: 1vmax;
+  box-shadow: 4px 9px 9px 6px rgba(71, 71, 71, 0.336);
+}
+
+.nav_container .profile .user_profile {
+  background-color: #d9d9d9;
+  border-radius: 1vmax;
+  padding: 4%;
+}
+
+.nav_container .profile .user_profile .user_detials {
+  display: flex;
+  align-items: center;
+  margin-bottom: 27px;
+}
+
+.user_detials .user_img {
+  margin: auto 3%;
+}
+
+.user_detials .user_info h3,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.nav_container .profile .user_profile .user_manage {
+  width: 100%;
+  text-align: center;
+  margin: 5% auto;
+}
+.nav_container .profile .user_profile .user_manage a {
+  background-color: #838383;
+  border-radius: 2vmax;
+  padding: 4% 10%;
+  text-decoration: none;
+  color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
