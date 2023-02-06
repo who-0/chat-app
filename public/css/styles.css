@@ -2,6 +2,7 @@ body {
   box-sizing: border-box;
   margin: 0;
   height: 100vh;
+  overflow: hidden;
 }
 
 .nav_container {
@@ -16,6 +17,7 @@ body {
 .nav_container .logo,
 .profile_img {
   margin: auto 4%;
+  cursor: pointer;
 }
 
 .nav_container .profile {
@@ -28,6 +30,36 @@ body {
   padding: 1%;
   border-radius: 1vmax;
   box-shadow: 4px 9px 9px 6px rgba(71, 71, 71, 0.336);
+  transition: all 1s;
+}
+
+.show {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0%);
+}
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(120%);
+}
+
+.profile .user_logout {
+  margin-top: 3%;
+  background-color: red;
+  text-decoration: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 4% 37%;
+  border-radius: 5vmax;
+  color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1.1rem;
+}
+
+.profile .user_logout i {
+  line-height: 5%;
 }
 
 .nav_container .profile .user_profile {
