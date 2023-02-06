@@ -4,8 +4,10 @@ const helmet = require("helmet");
 const cors = require("cors");
 const morgan = require("morgan");
 const app = express();
-
+//! Require
+const api = require("./routes/api");
 //! middlewares ----
+
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "..", "views"));
 app.use(express.static(path.join(__dirname, "..", "public")));
@@ -19,9 +21,6 @@ app.use(
 );
 app.use(cors({ origin: "http://localhost:3000", methods: ["get", "post"] }));
 app.use(morgan("tiny"));
-
-app.get("/", (req, res) => {
-  res.render("index");
-});
+app.use(api);
 
 module.exports = app;
