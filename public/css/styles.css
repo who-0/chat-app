@@ -51,7 +51,7 @@ body {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 4% 37%;
+  padding: 3% 37%;
   border-radius: 5vmax;
   color: white;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -96,4 +96,115 @@ p {
   text-decoration: none;
   color: white;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/*!---------- Chat Section ---------------*/
+.chat_container {
+  height: 100vh;
+
+  display: flex;
+
+  align-items: center;
+}
+
+.chat_container .users_box {
+  background-color: #006f5a;
+  width: 20%;
+  height: 100vh;
+}
+
+/* .users_box .active_users {
+
+} */
+
+.active_users .current_user {
+  background-color: white;
+  margin: 5%;
+  padding: 4%;
+  border-radius: 5vmax;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.current_user .connection {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+}
+
+.current_user .connection.online {
+  background-color: lime;
+}
+
+.current_user .connection.offline {
+  background-color: red;
+}
+
+.chat_container .chat_box {
+  height: 100vh;
+  width: 80%;
+}
+
+.chat_box .message_history {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  margin-top: -11.7%;
+  justify-content: flex-end;
+  flex-direction: column;
+
+  /* position: relative; */
+}
+
+.message_history .chat_incoming {
+  margin: 1%;
+  text-align: start;
+}
+
+.chat_incoming .incoming_message {
+  float: left;
+  width: fit-content;
+  padding: 1% 2%;
+  border-radius: 10px;
+  background-color: #9aefe5;
+}
+.message_history .chat_outgoing {
+  margin: 1%;
+  text-align: end;
+}
+.chat_outgoing .outgoing_message {
+  float: right;
+  width: fit-content;
+  padding: 1% 2%;
+  border-radius: 10px;
+  background-color: #9aefa2;
+}
+
+.chat_box .form_container {
+  width: 100%;
+  /* height: 8%; */
+  padding: 0.5% 0;
+  position: fixed;
+  bottom: 0;
+  background-color: #d9d9d9;
+}
+
+.form_container input {
+  width: 75%;
+  height: 3rem;
+  border: none;
+  outline: none;
+  margin-left: 0.3%;
+  background-color: transparent;
+  font-size: 1.3rem;
+}
+
+.form_container button {
+  padding: 0.7%;
+  color: #06cc0d;
+  border-radius: 50%;
+  border: none;
+  font-size: 1.3rem;
+  background-color: #a9fdb7;
 }

@@ -7,7 +7,7 @@ const typing = document.getElementById("user_typing");
 let email;
 
 //! New User Connect
-(function (user) {
+(async function (user) {
   email = user || `User${Math.floor(Math.random() * 10000)}`;
   socket.emit("new connected", email);
   addUser(email);
@@ -18,7 +18,12 @@ function addUser(email) {
   if (!!e_user) {
     return;
   }
-  const userBox = `<div class='${email}-user'><h5>${email}</h5></div>`;
+  const userBox = `
+  <div class='${email}-user current_user'>
+  <img src="/img/user-icon.png" alt="user-icon" width="40">
+    <p>${email}</p>
+    <span class="connection online"></span>
+  </div>`;
   activeUsers.innerHTML += userBox;
 }
 
@@ -43,21 +48,25 @@ function addMessage({ userID, message }) {
     minute: "numeric",
   });
   const incomingMsg = `
-    <div className="incoming_message">
+<div class="chat_incoming">
+  <div class="incoming_message">
       <p>${message}</p>
       <div className="user_id">
-        <span>${userID}</span>
+          <span>${userID}</span>
       </div>
-    </div>
+  </div>
+</div>
   `;
 
   const outgoingMsg = `
-  <div className="outgoing_message">
-    <p>${message}</p>
-    <div className="time">
-      <span>${current_time}</span>
-    </div>
+<div class="chat_outgoing">
+  <div class="outgoing_message">
+      <p>${message}</p>
+      <div className="time">
+          <span>${current_time}</span>
+      </div>
   </div>
+</div>
   `;
 
   msgHistory.innerHTML += userID === email ? outgoingMsg : incomingMsg;

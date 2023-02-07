@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 8000;
 const MONGO = process.env.MONGO_URL;
 
 (async () => {
-  await mongoConnect(MONGO);
+  // await mongoConnect(MONGO);
   server.listen(PORT, (_) => {
     console.log(`Server is running...`);
     console.log(`http://localhost:${PORT}`);

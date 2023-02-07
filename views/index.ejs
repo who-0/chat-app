@@ -44,42 +44,48 @@
             </a>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-6">
-                <div class="active_users" id="active_users">
-                    <div class='${email}-user'>
-                        <h5>user123</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6">
-                <div class="message_history" id="message_history">
-                    <!-- todo Incoming message -->
-                    <div className="incoming_message">
-                        <p>hello world</p>
-                        <div className="user_id">
-                            <span>user123</span>
-                        </div>
-                    </div>
+    <div class="chat_container">
 
-                    <!-- todo Outgoing message -->
-                    <div className="outgoing_message">
-                        <p>how are you</p>
-                        <div className="time">
-                            <span>12:00 pm</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="user_typing" id="user_typing"></div>
+        <div class="users_box">
+            <div class="active_users" id="active_users">
             </div>
         </div>
-        <div class="form_container">
-            <form id="user_form">
-                <input type="text" name="message" id="user_message" placeholder="Type message..." autocomplete="off">
-                <button type="submit">Send</button>
-            </form>
+        <div class="chat_box">
+            <div class="message_history" id="message_history">
+                <!-- todo Incoming message -->
+                <!-- 
+                <div class="chat_incoming">
+                    <div class="incoming_message">
+                        <p>${message}</p>
+                        <div className="user_id">
+                            <span>${userID}</span>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- todo Outgoing message -->
+                <!-- <div class="chat_outgoing">
+                    <div class="outgoing_message">
+                        <p>${message}</p>
+                        <div className="time">
+                            <span>${current_time}</span>
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+
+
+            <span class="user_typing" id="user_typing"></span>
+            <div class="form_container">
+                <form id="user_form">
+                    <input type="text" name="message" id="user_message" placeholder="Type message..."
+                        autocomplete="off">
+                    <button type="submit"><i class="fa-regular fa-paper-plane"></i></button>
+                </form>
+            </div>
         </div>
+
+
     </div>
     <a href="/signin">Signin</a>
 
