@@ -1,8 +1,12 @@
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const { COOKIE_ACCESS, COOKIE_REFRESH } = process.env;
 const { addNewUser, findUser } = require("../models/users.model");
 const httpGetSignIn = (req, res) => {
   res.render("signin");
 };
+
+console.log(process.env.COOKIE_ACCESS);
 
 const httpPostSignIn = async (req, res) => {
   const { uname, email, pwd } = req.body;
@@ -26,7 +30,18 @@ const httpPostSignIn = async (req, res) => {
         error: "Your data is not defined",
       });
     } else {
-      return res.status(200).json(newUser);
+      const accessToken = jwt.sign(
+        { id: newUser.id, email: newUser.email },
+        COOKIE_ACCESS,
+        { expiresIn: "1m" }
+      );
+      const refreshToken = jwt.sign(
+        { id: newUser.id, email: newUser.email },
+        COOKIE_REFRESH
+      );
+      res.cookie("accessToken", accessToken, { httpOnly: true });
+      res.cookie("refreshToken", refreshToken, { httpOnly: true });
+      res.render("index");
     }
   }
 };

@@ -3,6 +3,7 @@ const express = require("express");
 const helmet = require("helmet");
 const cors = require("cors");
 const morgan = require("morgan");
+const cookie = require("cookie-parser");
 const app = express();
 //! Require
 const api = require("./routes/api");
@@ -13,6 +14,7 @@ app.set("views", path.join(__dirname, "..", "views"));
 app.use(express.static(path.join(__dirname, "..", "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookie());
 app.use(helmet());
 // app.use(
 //   helmet.contentSecurityPolicy({

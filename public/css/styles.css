@@ -158,7 +158,7 @@ p {
 }
 
 .message_history .chat_incoming {
-  margin: 1%;
+  margin: 0.5%;
   text-align: start;
 }
 
@@ -170,7 +170,7 @@ p {
   background-color: #9aefe5;
 }
 .message_history .chat_outgoing {
-  margin: 1%;
+  margin: 0.5%;
   text-align: end;
 }
 .chat_outgoing .outgoing_message {
