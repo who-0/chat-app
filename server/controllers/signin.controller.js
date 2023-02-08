@@ -6,7 +6,6 @@ const httpGetSignIn = (req, res) => {
   res.render("signin");
 };
 
-console.log(process.env.COOKIE_ACCESS);
 
 const httpPostSignIn = async (req, res) => {
   const { uname, email, pwd } = req.body;

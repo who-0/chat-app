@@ -4,24 +4,26 @@ const userInput = document.getElementById("user_message");
 const activeUsers = document.getElementById("active_users");
 const msgHistory = document.getElementById("message_history");
 const typing = document.getElementById("user_typing");
-let email;
+let ID;
 
 //! New User Connect
-(async function (user) {
-  email = user || `User${Math.floor(Math.random() * 10000)}`;
-  socket.emit("new connected", email);
-  addUser(email);
+(async function () {
+  // email = user || `User${Math.floor(Math.random() * 10000)}`;
+  socket.emit("new connected");
+  // addUser(email);
 })();
 
-function addUser(email) {
-  const e_user = document.querySelector(`.${email}-user`) || null;
+function addUser(data) {
+  console.log(data);
+  const userid = data._id;
+  const e_user = document.getElementById(`${userid}`) || null;
   if (!!e_user) {
     return;
   }
   const userBox = `
-  <div class='${email}-user current_user'>
+  <div class='current_user' id=${userid} >
   <img src="/img/user-icon.png" alt="user-icon" width="40">
-    <p>${email}</p>
+    <p>${data.username}</p>
     <span class="connection online"></span>
   </div>`;
   activeUsers.innerHTML += userBox;

@@ -1,4 +1,5 @@
 const Socket = require("socket.io");
+const { getUser } = require("../controllers/home.controller");
 const activeUsers = new Set();
 
 module.exports = (server) => {
@@ -8,10 +9,11 @@ module.exports = (server) => {
     console.log("a user is connected");
 
     //! New User Connect
-    socket.on("new connected", (data) => {
-      socket.userID = data;
-      activeUsers.add(data);
-      console.log(activeUsers);
+    socket.on("new connected",async () => {
+      const user = await getUser();
+      console.log(user.id)
+      socket.userID = user.id;
+      activeUsers.add(user);
       io.emit("new user", [...activeUsers]);
     });
 

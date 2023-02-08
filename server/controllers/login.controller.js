@@ -21,6 +21,7 @@ const httpPostLogin = async (req, res) => {
         error: "Password is incorrect",
       });
     } else {
+    
       const accessToken = jwt.sign(
         {
           email: foundUser.email,
@@ -30,12 +31,12 @@ const httpPostLogin = async (req, res) => {
         { expiresIn: "1m" }
       );
       const refreshToken = jwt.sign(
-        { email: foundUser.email, id: foundUser.id },
+        { email: foundUser.email, id: foundUser._id },
         COOKIE_REFRESH
       );
       res.cookie("accessToken", accessToken, { httpOnly: true });
       res.cookie("refreshToken", refreshToken, { httpOnly: true });
-      res.render("index");
+      res.redirect('/')
     }
   }
 };
