@@ -4,18 +4,22 @@ const userInput = document.getElementById("user_message");
 const activeUsers = document.getElementById("active_users");
 const msgHistory = document.getElementById("message_history");
 const typing = document.getElementById("user_typing");
-let ID;
+let userid;
 
 //! New User Connect
 (async function () {
-  // email = user || `User${Math.floor(Math.random() * 10000)}`;
-  socket.emit("new connected");
-  // addUser(email);
+  const user = await fetch("http://localhost:3000/getuser").then((res) =>
+    res.json()
+  );
+  console.log(user);
+  socket.emit("new connected", user);
+  addUser(user);
 })();
 
-function addUser(data) {
-  console.log(data);
-  const userid = data._id;
+function addUser(user) {
+  userid = user.id;
+  console.log(userid);
+  console.log("client", userid);
   const e_user = document.getElementById(`${userid}`) || null;
   if (!!e_user) {
     return;
@@ -23,7 +27,7 @@ function addUser(data) {
   const userBox = `
   <div class='current_user' id=${userid} >
   <img src="/img/user-icon.png" alt="user-icon" width="40">
-    <p>${data.username}</p>
+    <p id=${userid}username>${user.username}</p>
     <span class="connection online"></span>
   </div>`;
   activeUsers.innerHTML += userBox;
@@ -36,15 +40,20 @@ socket.on("new user", function (data) {
 //! New Message
 userForm.addEventListener("submit", function (e) {
   e.preventDefault();
+  const username = document.getElementById(`${userid}username`).innerText;
   const userData = userInput.value || null;
   if (!userData) {
     return;
   }
-  socket.emit("new message", userData);
+  const data = {
+    username,
+    userData,
+  };
+  socket.emit("new message", data);
   userInput.value = "";
 });
 
-function addMessage({ userID, message }) {
+function addMessage({ username, id, message }) {
   const current_time = new Date().toLocaleString("en-US", {
     hour: "numeric",
     minute: "numeric",
@@ -54,7 +63,7 @@ function addMessage({ userID, message }) {
   <div class="incoming_message">
       <p>${message}</p>
       <div className="user_id">
-          <span>${userID}</span>
+          <span>${username}</span>
       </div>
   </div>
 </div>
@@ -70,12 +79,14 @@ function addMessage({ userID, message }) {
   </div>
 </div>
   `;
-
-  msgHistory.innerHTML += userID === email ? outgoingMsg : incomingMsg;
+  console.log(userid);
+  console.log(id);
+  console.log(id === userid);
+  msgHistory.innerHTML += id === userid ? outgoingMsg : incomingMsg;
 }
 
 socket.on("message", function (data) {
-  addMessage({ userID: data.id, message: data.message });
+  addMessage({ id: data.id, username: data.username, message: data.message });
   typing.innerHTML = "";
 });
 

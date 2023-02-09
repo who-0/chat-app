@@ -9,16 +9,17 @@ module.exports = (server) => {
     console.log("a user is connected");
 
     //! New User Connect
-    socket.on("new connected",async () => {
-      const user = await getUser();
-      console.log(user.id)
+    socket.on("new connected", (user) => {
+      // const user = await getUser();
       socket.userID = user.id;
+      console.log("userid", socket.userID);
       activeUsers.add(user);
+      console.log("acitve user", activeUsers);
       io.emit("new user", [...activeUsers]);
     });
 
     //! New Message
-    socket.on("new message", (data) => {
+    socket.on("new message", async (data) => {
       console.log({ id: socket.userID, data });
       io.emit("message", { id: socket.userID, message: data });
     });

@@ -6,7 +6,6 @@ const httpGetSignIn = (req, res) => {
   res.render("signin");
 };
 
-
 const httpPostSignIn = async (req, res) => {
   const { uname, email, pwd } = req.body;
   const oldUser = await findUser(email);
@@ -24,18 +23,19 @@ const httpPostSignIn = async (req, res) => {
       email,
     };
     const newUser = await addNewUser(data);
+    console.log(newUser);
     if (!newUser) {
       return res.status(400).json({
         error: "Your data is not defined",
       });
     } else {
       const accessToken = jwt.sign(
-        { id: newUser.id, email: newUser.email },
+        { id: newUser.id, username: newUser.username, email: newUser.email },
         COOKIE_ACCESS,
         { expiresIn: "1m" }
       );
       const refreshToken = jwt.sign(
-        { id: newUser.id, email: newUser.email },
+        { id: newUser.id, username: foundUser.username, email: newUser.email },
         COOKIE_REFRESH
       );
       res.cookie("accessToken", accessToken, { httpOnly: true });
