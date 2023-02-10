@@ -39,6 +39,7 @@ module.exports = (server) => {
         if (i.id == user) {
           delete update[i.id];
         }
+        return;
       });
       // console.log("new", activeUsers);
       io.emit("user disconnected", user);
