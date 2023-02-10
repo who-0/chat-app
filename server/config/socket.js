@@ -25,16 +25,23 @@ module.exports = (server) => {
     });
 
     socket.on("typing", (data) => {
-      console.log(data);
       socket.broadcast.emit("user typing", data);
     });
 
     //! User Disconnect
     socket.on("disconnect", () => {
       const user = socket.userID;
-      activeUsers.delete(user);
+      // console.log("user", user);
+      const update = [...activeUsers];
+      console.log(update);
+      // activeUsers.delete(user);
+      update.forEach((i) => {
+        if (i.id == user) {
+          delete update[i.id];
+        }
+      });
+      // console.log("new", activeUsers);
       io.emit("user disconnected", user);
-      console.log("new", activeUsers);
     });
   });
 };

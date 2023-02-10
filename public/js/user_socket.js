@@ -23,7 +23,7 @@ function addUser(user) {
     return;
   }
   const userBox = `
-  <div class='current_user' id=${userid} >
+  <div class='current_user' id=${user.id} >
   <img src="/img/user-icon.png" alt="user-icon" width="40">
     <p id=${userid}username>${user.username}</p>
     <span class="connection online"></span>
@@ -109,5 +109,7 @@ socket.on("user typing", function (data) {
 //! User Disconnect
 socket.on("user disconnected", function (data) {
   console.log(data);
-  document.querySelector(`.${data}-user`).remove();
+  const exist_user = document.getElementById(`${data}`);
+  console.log(exist_user);
+  exist_user.remove();
 });
