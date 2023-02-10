@@ -99,17 +99,15 @@ userInput.addEventListener("keyup", function () {
 });
 
 socket.on("user typing", function (data) {
-  console.log("data", data);
   if (!data.isTyping) {
-    console.log("typing end");
     typing.innerHTML = "";
   } else {
-    console.log("typing start");
     typing.innerHTML = `<p>Typing...</p>`;
   }
 });
 
 //! User Disconnect
 socket.on("user disconnected", function (data) {
+  console.log(data);
   document.querySelector(`.${data}-user`).remove();
 });
