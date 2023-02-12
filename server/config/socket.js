@@ -14,7 +14,7 @@ module.exports = (server) => {
       socket.userID = user.id;
 
       activeUsers.add(user);
-      console.log(activeUsers);
+      // console.log(activeUsers);
       io.emit("new user", [...activeUsers]);
     });
 
@@ -33,7 +33,6 @@ module.exports = (server) => {
       const user = socket.userID;
       // console.log("user", user);
       const update = [...activeUsers];
-      console.log(update);
       // activeUsers.delete(user);
       update.forEach((i) => {
         if (i.id == user) {
