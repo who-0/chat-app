@@ -11,21 +11,19 @@ let userid;
   const user = await fetch("http://localhost:3000/getuser").then((res) =>
     res.json()
   );
-  console.log(user);
+
+  userid = user.id;
   socket.emit("new connected", user);
   addUser(user);
 })();
 
 function addUser(user) {
-  userid = user.id;
-  console.log(userid);
-  console.log("client", userid);
   const e_user = document.getElementById(`${userid}`) || null;
-  if (!!e_user) {
+  if (userid == user.id && e_user) {
     return;
   }
   const userBox = `
-  <div class='current_user' id=${userid} >
+  <div class='current_user' id=${user.id} >
   <img src="/img/user-icon.png" alt="user-icon" width="40">
     <p id=${userid}username>${user.username}</p>
     <span class="connection online"></span>
@@ -51,6 +49,7 @@ userForm.addEventListener("submit", function (e) {
   };
   socket.emit("new message", data);
   userInput.value = "";
+  socket.emit("typing", { isTyping: false });
 });
 
 function addMessage({ username, id, message }) {
@@ -79,31 +78,40 @@ function addMessage({ username, id, message }) {
   </div>
 </div>
   `;
-  console.log(userid);
-  console.log(id);
-  console.log(id === userid);
+  // console.log(id === userid);
   msgHistory.innerHTML += id === userid ? outgoingMsg : incomingMsg;
 }
 
 socket.on("message", function (data) {
-  addMessage({ id: data.id, username: data.username, message: data.message });
-  typing.innerHTML = "";
+  addMessage({
+    id: data.id,
+    username: data.message.username,
+    message: data.message.userData,
+  });
+  // console.log(typing);
+  // socket.emit("typing", false);
+  // typing.innerHTML = "";
 });
 
 userInput.addEventListener("keyup", function () {
+  console.log("keyup", userInput.value.length > 0);
   socket.emit("typing", { isTyping: userInput.value.length > 0 });
 });
 
 socket.on("user typing", function (data) {
-  if (!data) {
+  if (!data.isTyping) {
     typing.innerHTML = "";
+  } else {
+    typing.innerHTML = `<p>Typing...</p>`;
   }
-  typing.innerHTML = `<p>Typing...</p>`;
 });
 
 //! User Disconnect
 socket.on("user disconnected", function (data) {
-  document.querySelector(`.${data}-user`).remove();
+  console.log(data);
+  const exist_user = document.getElementById(`${data}`);
+  console.log(exist_user);
+  exist_user.remove();
 });
 
 switch (key) {

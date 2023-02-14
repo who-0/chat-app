@@ -12,15 +12,15 @@ module.exports = (server) => {
     socket.on("new connected", (user) => {
       // const user = await getUser();
       socket.userID = user.id;
-      console.log("userid", socket.userID);
+
       activeUsers.add(user);
-      console.log("acitve user", activeUsers);
+      // console.log(activeUsers);
       io.emit("new user", [...activeUsers]);
     });
 
     //! New Message
-    socket.on("new message", async (data) => {
-      console.log({ id: socket.userID, data });
+    socket.on("new message", (data) => {
+      // console.log({ id: socket.userID, data });
       io.emit("message", { id: socket.userID, message: data });
     });
 
@@ -31,9 +31,17 @@ module.exports = (server) => {
     //! User Disconnect
     socket.on("disconnect", () => {
       const user = socket.userID;
-      activeUsers.delete(user);
+      // console.log("user", user);
+      const update = [...activeUsers];
+      // activeUsers.delete(user);
+      update.forEach((i) => {
+        if (i.id == user) {
+          delete update[i.id];
+        }
+        return;
+      });
+      // console.log("new", activeUsers);
       io.emit("user disconnected", user);
-      console.log("new", activeUsers);
     });
   });
 };

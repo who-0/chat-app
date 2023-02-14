@@ -11,12 +11,12 @@ const findUser = async (email) => {
   return await User.findOne({ email });
 };
 
-const findUserById = async(userID)=>{
-  return await User.findById(userID)
-}
+const findUserById = async (userID) => {
+  return await User.findById(userID);
+};
 
 module.exports = {
   addNewUser,
   findUser,
-  findUserById
+  findUserById,
 };
