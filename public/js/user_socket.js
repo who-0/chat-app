@@ -105,3 +105,11 @@ socket.on("user typing", function (data) {
 socket.on("user disconnected", function (data) {
   document.querySelector(`.${data}-user`).remove();
 });
+
+switch (key) {
+  case value:
+    break;
+
+  default:
+    break;
+}
