@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
   },
   image: {
     type: String,
-    default: "default",
+    default: "/img/user-icon.png",
   },
   email: {
     type: String,

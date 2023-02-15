@@ -1,6 +1,6 @@
 const profile = document.getElementById("profile_img");
 const profileMenu = document.getElementById("profile_menu");
-const frinend = document.getElementById("friends_container");
+const overlay = document.getElementById("overlay");
 const addContainer = document.getElementById("add_container");
 const addFriend = document.getElementById("add_friend");
 
@@ -14,15 +14,15 @@ profile.addEventListener("click", function () {
 //! Add Friend Action ------------------------------
 
 addFriend.addEventListener("click", function () {
-  frinend.classList.remove("hidden_friend");
+  overlay.classList.remove("hidden_overlay");
   addContainer.classList.remove("hidden_addcontainer");
-  frinend.classList.add("show_friend");
+  overlay.classList.add("show_overlay");
   addContainer.classList.add("show_addcontainer");
 });
 
-frinend.addEventListener("click", function () {
-  frinend.classList.remove("show_friend");
-  addContainer.classList.remove("show_addContainer");
-  frinend.classList.add("hidden_friend");
-  addContainer.classList.add("hidden_addContainer");
+overlay.addEventListener("click", function () {
+  overlay.classList.remove("show_overlay");
+  addContainer.classList.remove("show_addcontainer");
+  overlay.classList.add("hidden_overlay");
+  addContainer.classList.add("hidden_addcontainer");
 });
