@@ -20,17 +20,7 @@ const findAllUsers = async () => {
 };
 
 const FindaddFriend = async (id, friendID) => {
-  console.log("model id", id);
-  console.log("model fir", friendID);
-  return await User.findOneAndUpdate(
-    id,
-    { friends: [friendID] },
-    { upsert: true, new: true }
-  );
-};
-
-const reversAddFriend = async (id, friendID) => {
-  return await User.findOneAndUpdate(
+  return await User.findByIdAndUpdate(
     id,
     { friends: [friendID] },
     { upsert: true, new: true }
@@ -43,5 +33,4 @@ module.exports = {
   findAllUsers,
   findUserById,
   FindaddFriend,
-  reversAddFriend,
 };

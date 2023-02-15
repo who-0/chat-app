@@ -1,7 +1,6 @@
 // const jwt = require("jsonwebtoken");
 // const { COOKIE_ACCESS } = process.env;
 const {
-  reversAddFriend,
   FindaddFriend,
   findAllUsers,
   findUserById,
@@ -41,7 +40,7 @@ const addFriend = async (req, res) => {
     userID = req.data.id;
     const updateUser = await FindaddFriend(userID, ID);
     if (updateUser) {
-      const friendUser = await reversAddFriend(ID, userID);
+      const friendUser = await FindaddFriend(ID, userID);
       console.log(friendUser);
     }
     return res.status(200).json(updateUser);

@@ -46,6 +46,7 @@
         </div>
     </div>
     <!--? Nav End -->
+
     <!--? Chat Start -->
     <div class="chat_container">
 
@@ -96,12 +97,12 @@
     </div>
     <!--? Chat End -->
     <!--? Search Friend Start -->
-    <div class="add_container hidden_addcontainer" id="add_container">
+    <div class="add_container show_addcontainer" id="add_container">
         <div class="search_container">
             <i class="fa-solid fa-magnifying-glass"></i>
             <input type="search" name="search" id="search" placeholder="Search Friends" autocomplete="off" />
         </div>
-        <div class="show_fri">\
+        <div class="show_fri">
             <% allUsers.forEach(user=> { %>
                 <div class="show_user" id="<%= user.id %>">
                     <img src="<%= user.img %>" alt="user_icon" width="40">
