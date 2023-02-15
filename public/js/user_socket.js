@@ -11,10 +11,10 @@ let userid;
   const user = await fetch("http://localhost:3000/getuser").then((res) =>
     res.json()
   );
-
+  console.log(user);
   userid = user.id;
   socket.emit("new connected", user);
-  addUser(user);
+  // addUser(user);
 })();
 
 function addUser(user) {

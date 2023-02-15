@@ -24,12 +24,22 @@ const httpGetHome = async (req, res) => {
   res.render("index", { allUsers });
 };
 
-const getUser = (req, res) => {
-  const { username, id } = req.data;
-  console.log("server", req.data);
+const getUser = async (req, res) => {
+  const allFriends = [];
+  const { id } = req.data;
+  const { friends } = await findUserById(id);
+  friends.forEach(async (friend) => {
+    const f = await findUserById(friend);
+    console.log("f", f);
+    allFriends.push({
+      id: f.id,
+      username: f.username,
+    });
+  });
+  console.log("allfirends", allFriends);
   return res.status(200).json({
-    username,
     id,
+    allFriends,
   });
 };
 

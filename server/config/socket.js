@@ -12,10 +12,11 @@ module.exports = (server) => {
     socket.on("new connected", (user) => {
       // const user = await getUser();
       socket.userID = user.id;
+      const allFriends = user.allFriends;
 
-      activeUsers.add(user);
+      // activeUsers.add(allFriends);
       // console.log(activeUsers);
-      io.emit("new user", [...activeUsers]);
+      io.emit("new user", allFriends);
     });
 
     //! New Message
