@@ -113,3 +113,11 @@ socket.on("user disconnected", function (data) {
   console.log(exist_user);
   exist_user.remove();
 });
+
+switch (key) {
+  case value:
+    break;
+
+  default:
+    break;
+}
