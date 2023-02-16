@@ -6,7 +6,6 @@ const addFriend = document.getElementById("add_friend");
 
 //! Profile Action -------------------------------
 profile.addEventListener("click", function () {
-  console.log(profileMenu);
   profileMenu.classList.toggle("hidden");
   profileMenu.classList.toggle("show");
 });

@@ -11,22 +11,24 @@ let userid;
   const user = await fetch("http://localhost:3000/getuser").then((res) =>
     res.json()
   );
-  console.log(user);
   userid = user.id;
   socket.emit("new connected", user);
-  // addUser(user);
+  addUser(user);
 })();
 
 function addUser(user) {
   const e_user = document.getElementById(`${userid}`) || null;
   if (userid == user.id && e_user) {
+    const status = document.getElementsByClassName("connection")[0];
+    status.classList.remove("offline");
+    status.classList.add("online");
     return;
   }
   const userBox = `
   <div class='current_user' id=${user.id} >
   <img src="/img/user-icon.png" alt="user-icon" width="40">
     <p id=${userid}username>${user.username}</p>
-    <span class="connection online"></span>
+    <span class="connection offline"></span>
   </div>`;
   activeUsers.innerHTML += userBox;
 }
