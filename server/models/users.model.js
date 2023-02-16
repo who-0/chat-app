@@ -1,3 +1,4 @@
+const { findOneAndUpdate } = require("./users.mongo");
 const User = require("./users.mongo");
 const addNewUser = async (data) => {
   console.log(data);
@@ -27,10 +28,19 @@ const FindaddFriend = async (id, friendID) => {
   );
 };
 
+const getStatus = async (id, status) => {
+  return await User.findOneAndUpdate(
+    id,
+    { status },
+    { upsert: true, new: true }
+  );
+};
+
 module.exports = {
   addNewUser,
   findUser,
   findAllUsers,
   findUserById,
   FindaddFriend,
+  getStatus,
 };

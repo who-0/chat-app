@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema({
     require: true,
   },
   friends: [String],
+  status: {
+    type: String,
+    default: "offline",
+  },
 });
 
 module.exports = mongoose.model("Users", userSchema);

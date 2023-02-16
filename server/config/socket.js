@@ -1,5 +1,5 @@
 const Socket = require("socket.io");
-const { getUser } = require("../controllers/home.controller");
+const { changeStatus } = require("../controllers/home.controller");
 const activeUsers = new Set();
 
 module.exports = (server) => {
@@ -9,11 +9,11 @@ module.exports = (server) => {
     console.log("a user is connected");
 
     //! New User Connect
-    socket.on("new connected", (user) => {
+    socket.on("new connected", async (user) => {
       // const user = await getUser();
       socket.userID = user.id;
+      await changeStatus(user.id, "online");
       const allFriends = user.allFriends;
-
       // activeUsers.add(allFriends);
       // console.log(activeUsers);
       io.emit("new user", allFriends);

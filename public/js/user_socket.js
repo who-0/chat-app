@@ -13,14 +13,14 @@ let userid;
   );
   userid = user.id;
   socket.emit("new connected", user);
-  addUser(user);
+  // addUser(user);
 })();
 
 function addUser(user) {
   const e_user = document.getElementById(`${userid}`) || null;
   if (userid == user.id && e_user) {
     const status = document.getElementsByClassName("connection")[0];
-    status.classList.remove("offline");
+    // status.classList.remove("offline");
     status.classList.add("online");
     return;
   }
@@ -28,7 +28,7 @@ function addUser(user) {
   <div class='current_user' id=${user.id} >
   <img src="/img/user-icon.png" alt="user-icon" width="40">
     <p id=${userid}username>${user.username}</p>
-    <span class="connection offline"></span>
+    <span class="connection ${user.status}"></span>
   </div>`;
   activeUsers.innerHTML += userBox;
 }
