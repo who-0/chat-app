@@ -9,33 +9,39 @@ const {
 let userID;
 const httpGetHome = async (req, res) => {
   const allUsers = [];
+  let currentUser;
   userID = req.data.id;
   const users = await findAllUsers();
   users.forEach((user) => {
     let id = user.id;
     if (userID === id) {
+      const { id, username, email, image } = user;
+      currentUser = { id, username, email, image };
       return;
     }
     let username = user.username;
     let email = user.email;
     let img = user.image;
+
     allUsers.push({ id, username, email, img });
   });
-  res.render("index", { allUsers });
+  res.render("index", { currentUser, allUsers });
 };
 
 const getUser = async (req, res) => {
   const allFriends = [];
   const { id } = req.data;
-  const { friends } = await findUserById(id);
-  friends.forEach(async (friend) => {
-    const f = await findUserById(friend);
-    console.log("f", f);
-    allFriends.push({
-      id: f.id,
-      username: f.username,
+  const user = await findUserById(id);
+  if (user) {
+    for (const fid of user.friends) {
+      const { id, username } = await findUserById(fid);
+      allFriends.push({ id, username });
+    }
+  } else {
+    return res.status(404).json({
+      error: "Your friend is empty",
     });
-  });
+  }
   console.log("allfirends", allFriends);
   return res.status(200).json({
     id,

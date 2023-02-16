@@ -26,13 +26,17 @@
         </div>
         <div class="profile hidden" id="profile_menu">
             <div class="user_profile">
-                <div class="user_detials">
+                <div class="user_detials" id="<%= currentUser.id %>">
                     <span class="user_img">
-                        <img src="/img/chatapp_logo.svg" alt="ChatAppLogo" width="45">
+                        <img src="<%= currentUser.image %>" alt="ChatAppLogo" width="45">
                     </span>
                     <span class="user_info">
-                        <h3>Username</h3>
-                        <p>example@gmail.com</p>
+                        <h3>
+                            <%= currentUser.username %>
+                        </h3>
+                        <p>
+                            <%= currentUser.email %>
+                        </p>
                     </span>
                 </div>
                 <div class="user_manage">
